@@ -19,6 +19,12 @@ export class Auth {
       );
   }
 
+  registro(email: string, password: string, nombre: string) {
+    const urlRegistro = 'http://localhost:8080/usuarios';
+    // Enviamos el objeto exactamente como lo espera tu Record 'DatosCrearUsuario' en Java
+    return this.http.post(urlRegistro, { email, password, nombre });
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }

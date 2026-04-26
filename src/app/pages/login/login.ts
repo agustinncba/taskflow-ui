@@ -1,13 +1,13 @@
 import { ToastService } from '../../core/services/toast';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink} from '@angular/router';
 import { Auth } from '../../services/auth'; // <-- Ajusta esta ruta si tu auth.ts está en otra carpeta
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule], // Habilitamos los formularios modernos
+  imports: [ReactiveFormsModule, RouterLink], // Habilitamos los formularios modernos
   templateUrl: './login.html'
 })
 export class LoginComponent {
