@@ -16,19 +16,14 @@
       </button>
     </div>
 
-    <div class="space-y-4">
-      <div *ngFor="let t of tareas" class="bg-slate-800 p-5 rounded-xl border-l-4 border-emerald-500 flex justify-between items-center">
-        <div>
-          <h3 class="font-bold text-lg">{{ t.titulo }}</h3>
-          <p class="text-slate-400 text-sm">{{ t.descripcion }}</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-xs bg-slate-700 px-2 py-1 rounded text-emerald-400">Pendiente</span>
-        </div>
-      </div>
-
-      <div *ngIf="tareas.length === 0" class="text-center py-12 text-slate-500">
-        No tienes tareas pendientes. ¡Empieza por agregar una!
+    <div class="grid grid-cols-1 gap-6">
+      <app-tarea-card 
+        *ngFor="let t of tareas" 
+        [tarea]="t">
+      </app-tarea-card>
+      
+      <div *ngIf="tareas.length === 0" class="text-center py-16 bg-slate-800/30 rounded-2xl border-2 border-dashed border-slate-700">
+        <p class="text-slate-500 font-medium italic">No hay misiones pendientes para hoy.</p>
       </div>
     </div>
 

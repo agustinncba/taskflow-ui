@@ -1,12 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-export interface Tarea {
-  id?: number;
-  titulo: string;
-  descripcion: string;
-  completada: boolean;
-}
+import { Observable } from 'rxjs';
+import { Tarea, DatosCrearTarea } from '../core/models/tarea';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +10,13 @@ export class TareasService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/tareas';
 
-  getTareas() {
+  // Ahora el método devuelve un Observable de un array de Tareas
+  getTareas(): Observable<Tarea[]> {
     return this.http.get<Tarea[]>(this.apiUrl);
   }
 
-  crearTarea(tarea: {titulo: string, descripcion: string}) {
-    // Nota: Ya no enviamos usuarioId, el backend lo saca del Token
+  // Especificamos que enviamos DatosCrearTarea y recibimos la Tarea creada
+  crearTarea(tarea: DatosCrearTarea): Observable<Tarea> {
     return this.http.post<Tarea>(this.apiUrl, tarea);
   }
 }

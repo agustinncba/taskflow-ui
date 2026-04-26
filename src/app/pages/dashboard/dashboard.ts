@@ -2,13 +2,15 @@ import { ToastService } from '../../core/services/toast';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TareasService, Tarea } from '../../services/tareas';
+import { TareasService } from '../../services/tareas';
+import { TareaCardComponent } from './components/tarea-card/tarea-card';
 import { Router } from '@angular/router';
+import { Tarea } from '../../core/models/tarea';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TareaCardComponent],
   templateUrl: './dashboard.html'
 })
 export class DashboardComponent implements OnInit {
