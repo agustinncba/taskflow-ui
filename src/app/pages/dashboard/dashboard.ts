@@ -1,4 +1,6 @@
 import { ToastService } from '../../core/services/toast';
+import { ThemeService } from '../../core/services/theme';
+import { ThemeToggleComponent } from '../../core/components/theme-toggle/theme-toggle';
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,13 +12,14 @@ import { Tarea } from '../../core/models/tarea';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, TareaCardComponent],
+  imports: [CommonModule, FormsModule, TareaCardComponent, ThemeToggleComponent],
   templateUrl: './dashboard.html'
 })
 export class DashboardComponent implements OnInit {
   private tareasService = inject(TareasService);
   private router = inject(Router);
   private toast = inject(ToastService);
+  theme = inject(ThemeService);
 
   tareas: Tarea[] = [];
   nuevaTarea = { titulo: '', descripcion: '' };

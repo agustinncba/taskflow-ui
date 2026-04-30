@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tarea } from '../../../../core/models/tarea';
+import { ThemeService } from '../../../../core/services/theme';
 
 @Component({
   selector: 'app-tarea-card',
@@ -9,7 +10,6 @@ import { Tarea } from '../../../../core/models/tarea';
   templateUrl: './tarea-card.html'
 })
 export class TareaCardComponent {
-  // El decorador @Input permite que el dashboard le envíe la tarea
-  // El "!" indica que confiamos en que el valor llegará
+  theme = inject(ThemeService);
   @Input({ required: true }) tarea!: Tarea;
 }

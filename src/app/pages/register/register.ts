@@ -1,27 +1,29 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { ToastService } from '../../core/services/toast';
+import { ThemeService } from '../../core/services/theme';
+import { ThemeToggleComponent } from '../../core/components/theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  // Importamos RouterLink para poder navegar sin recargar la página
-  imports: [ReactiveFormsModule, RouterLink], 
-  templateUrl: './register.html' // (o .component.html según lo tengas)
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, ThemeToggleComponent],
+  templateUrl: './register.html'
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(Auth);
   private router = inject(Router);
   private toast = inject(ToastService);
+  theme = inject(ThemeService);
 
-  // Agregamos el campo 'nombre' a las validaciones
   registerForm = this.fb.group({
     nombre: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]] // Exigimos un mínimo de 6 caracteres
+    password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
   onSubmit() {
@@ -31,11 +33,10 @@ export class RegisterComponent {
       this.authService.registro(email!, password!, nombre!).subscribe({
         next: () => {
           this.toast.show('¡Cuenta creada con éxito! Ahora puedes iniciar sesión.');
-          this.router.navigate(['/login']); // Lo mandamos a loguearse
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           console.error('Error en el registro:', err);
-          // Si el backend lanza la excepción "El usuario ya se encuentra registrado"
           this.toast.show('Error al registrar: El correo ya existe', 'error');
         }
       });

@@ -1,15 +1,24 @@
-<div class="min-h-screen bg-slate-900 text-white p-6">
+<div class="min-h-screen p-6 transition-colors duration-300"
+     [ngClass]="theme.isDarkMode() ? 'bg-slate-900 text-white' : 'bg-gray-100 text-gray-900'">
   <div class="max-w-4xl mx-auto">
 
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl font-bold text-emerald-400">Mis Tareas</h1>
-      <button (click)="logout()" class="text-slate-400 hover:text-white transition-colors cursor-pointer">Cerrar Sesión</button>
+      <h1 class="text-3xl font-bold" [ngClass]="theme.isDarkMode() ? 'text-emerald-400' : 'text-emerald-600'">Mis Tareas</h1>
+      <div class="flex items-center gap-4">
+        <app-theme-toggle></app-theme-toggle>
+        <button (click)="logout()" class="transition-colors cursor-pointer" [ngClass]="theme.isDarkMode() ? 'text-slate-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'">Cerrar Sesión</button>
+      </div>
     </div>
 
-    <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 mb-8">
+    <div class="p-6 rounded-xl border mb-8 transition-colors duration-300"
+         [ngClass]="theme.isDarkMode() ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-300 shadow-sm'">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input [(ngModel)]="nuevaTarea.titulo" placeholder="Título de la tarea" class="bg-slate-900 border border-slate-700 p-3 rounded-lg focus:outline-emerald-500">
-        <input [(ngModel)]="nuevaTarea.descripcion" placeholder="Descripción (opcional)" class="bg-slate-900 border border-slate-700 p-3 rounded-lg focus:outline-emerald-500">
+        <input [(ngModel)]="nuevaTarea.titulo" placeholder="Título de la tarea"
+               class="border p-3 rounded-lg focus:outline-emerald-500 transition-colors duration-300"
+               [ngClass]="theme.isDarkMode() ? 'bg-slate-900 border-slate-700' : 'bg-gray-50 border-gray-300'">
+        <input [(ngModel)]="nuevaTarea.descripcion" placeholder="Descripción (opcional)"
+               class="border p-3 rounded-lg focus:outline-emerald-500 transition-colors duration-300"
+               [ngClass]="theme.isDarkMode() ? 'bg-slate-900 border-slate-700' : 'bg-gray-50 border-gray-300'">
       </div>
       <button (click)="agregarTarea()" class="mt-4 w-full bg-emerald-600 p-3 rounded-lg font-bold hover:bg-emerald-500 transition-colors cursor-pointer">
         + Añadir Tarea
@@ -22,8 +31,9 @@
         [tarea]="t">
       </app-tarea-card>
       
-      <div *ngIf="tareas.length === 0" class="text-center py-16 bg-slate-800/30 rounded-2xl border-2 border-dashed border-slate-700">
-        <p class="text-slate-500 font-medium italic">No hay misiones pendientes para hoy.</p>
+      <div *ngIf="tareas.length === 0" class="text-center py-16 rounded-2xl border-2 border-dashed transition-colors duration-300"
+           [ngClass]="theme.isDarkMode() ? 'bg-slate-800/30 border-slate-700' : 'bg-gray-50 border-gray-300'">
+        <p class="font-medium italic" [ngClass]="theme.isDarkMode() ? 'text-slate-500' : 'text-gray-400'">No hay misiones pendientes para hoy.</p>
       </div>
     </div>
 

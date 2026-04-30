@@ -1,29 +1,31 @@
 import { ToastService } from '../../core/services/toast';
+import { ThemeService } from '../../core/services/theme';
+import { ThemeToggleComponent } from '../../core/components/theme-toggle/theme-toggle';
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink} from '@angular/router';
-import { Auth } from '../../services/auth'; // <-- Ajusta esta ruta si tu auth.ts está en otra carpeta
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink], // Habilitamos los formularios modernos
-  templateUrl: './login.html'
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, ThemeToggleComponent],
+  templateUrl: './login.html',
+  styleUrl: './login.css'
 })
 export class LoginComponent {
-  // Inyectamos las herramientas que necesitamos
   private fb = inject(FormBuilder);
   private authService = inject(Auth);
   private router = inject(Router);
   private toast = inject(ToastService);
+  theme = inject(ThemeService);
 
-  // Creamos la estructura del formulario con sus validaciones
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });
 
-  // Método que se ejecuta al darle clic a "Ingresar"
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;

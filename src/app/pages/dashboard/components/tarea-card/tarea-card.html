@@ -1,18 +1,23 @@
-<div class="bg-slate-800 p-5 rounded-xl border-l-4 transition-all duration-300 hover:scale-[1.01] shadow-md flex justify-between items-center"
-     [ngClass]="tarea.completada ? 'border-slate-500 opacity-75' : 'border-emerald-500'">
-  
-  <div class="flex flex-col gap-1">
-    <h3 class="font-bold text-lg" 
-        [ngClass]="{'line-through text-slate-500': tarea.completada, 'text-white': !tarea.completada}">
-      {{ tarea.titulo }}
-    </h3>
-    <p class="text-slate-400 text-sm italic">{{ tarea.descripcion || 'Sin descripción' }}</p>
-  </div>
+<div class="p-5 rounded-xl border transition-all duration-300 hover:scale-[1.01] shadow-md flex justify-between items-center"
+     [ngClass]="{
+       'bg-slate-800 border-slate-700': theme.isDarkMode(),
+       'bg-white border-gray-200': !theme.isDarkMode(),
+       'opacity-75': tarea.completada && theme.isDarkMode(),
+       'opacity-60': tarea.completada && !theme.isDarkMode()
+     }">
+   
+   <div class="flex flex-col gap-1">
+     <h3 class="font-bold text-lg" 
+         [ngClass]="{'line-through': tarea.completada, 'text-slate-500': tarea.completada && theme.isDarkMode(), 'text-gray-400': tarea.completada && !theme.isDarkMode(), 'text-white': !tarea.completada && theme.isDarkMode(), 'text-gray-900': !tarea.completada && !theme.isDarkMode()}">
+       {{ tarea.titulo }}
+     </h3>
+     <p class="text-sm italic" [ngClass]="theme.isDarkMode() ? 'text-slate-400' : 'text-gray-500'">{{ tarea.descripcion || 'Sin descripción' }}</p>
+   </div>
 
-  <div class="flex items-center gap-3">
-    <span class="text-[10px] uppercase tracking-widest px-2 py-1 rounded font-bold"
-          [ngClass]="tarea.completada ? 'bg-slate-700 text-slate-400' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'">
-      {{ tarea.completada ? 'Finalizada' : 'Pendiente' }}
-    </span>
-  </div>
+   <div class="flex items-center gap-3">
+     <span class="text-[10px] uppercase tracking-widest px-2 py-1 rounded font-bold"
+           [ngClass]="tarea.completada ? (theme.isDarkMode() ? 'bg-slate-700 text-slate-400' : 'bg-gray-200 text-gray-500') : (theme.isDarkMode() ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-600 border border-emerald-200')">
+       {{ tarea.completada ? 'Finalizada' : 'Pendiente' }}
+     </span>
+   </div>
 </div>
