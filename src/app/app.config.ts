@@ -1,6 +1,7 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './services/auth-interceptor'; // El que pega el Token
@@ -10,6 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
+    provideAnimations(),
     // 2. Agrega el errorInterceptor a la lista
     provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])) 
   ]

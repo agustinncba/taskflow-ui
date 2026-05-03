@@ -16,9 +16,13 @@ export class ToastService {
   show(text: string, type: 'success' | 'error' = 'success') {
     this.currentToast.set({ text, type });
 
-    // Hacemos que desaparezca automáticamente después de 3 segundos
+    // Hacemos que desaparezca automáticamente después de 3.5 segundos (un poco más para que la barra se vea)
     setTimeout(() => {
-      this.currentToast.set(null);
-    }, 3000);
+      this.clear();
+    }, 3500);
+  }
+
+  clear() {
+    this.currentToast.set(null);
   }
 }
